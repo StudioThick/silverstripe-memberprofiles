@@ -484,7 +484,7 @@ class MemberProfilePage_Controller extends Page_Controller {
 			'RegisterForm',
 			$this->getProfileFields('Registration'),
 			new FieldList(
-				new FormAction('register', _t('MemberProfiles.REGISTER', 'Register'))
+				new FormAction('register', _t('MemberProfiles.REGISTER', 'Sign up'))
 			),
 			new MemberProfileValidator($this->Fields())
 		);
@@ -745,7 +745,7 @@ class MemberProfilePage_Controller extends Page_Controller {
 	 * @return Member|null
 	 */
 	protected function addMember($form) {
-		$member   = new Member();
+		$member   = new KeepCupMember();
 		$groupIds = $this->getSettableGroupIdsFrom($form);
 
 		$form->saveInto($member);
@@ -823,14 +823,14 @@ class MemberProfilePage_Controller extends Page_Controller {
 			$context = 'Registration';
 		}
 
-		if ($this->AllowProfileViewing
+		/*if ($this->AllowProfileViewing
 		    && $profileFields->find('PublicVisibility', 'MemberChoice')
 		) {
 			$fields->push(new LiteralField('VisibilityNote', '<p>' . _t(
 				'MemberProfiles.CHECKVISNOTE',
 				'Check fields below to make them visible on your public ' .
 				'profile.') . '</p>'));
-		}
+		}*/
 
 		foreach($profileFields as $profileField) {
 			$visibility  = $profileField->{$context . 'Visibility'};

@@ -50,9 +50,25 @@ class MemberProfileExtension extends DataExtension {
 		}
 	}
 
+	static $defaults = array(
+		'ValidationKey' 	=> 'populateDefaults()'		
+		
+
+	);
+
 	public function populateDefaults() {
 		$this->owner->ValidationKey = sha1(mt_rand() . mt_rand());
 	}
+
+	// function __construct() {
+	//     $self = $this;
+	//     $this->beforeExtending('populateDefaults', function() use ($self) {
+	//         if(empty($self->ValidationKey)) {
+	//             $self->ValidationKey = sha1(mt_rand() . mt_rand());
+	//         }
+	//     });
+	//     parent::__construct();
+	// }
 
 	public function onAfterWrite() {
 		$changed = $this->owner->getChangedFields();
@@ -84,7 +100,7 @@ class MemberProfileExtension extends DataExtension {
 	}
 
 	public function updateCMSFields(FieldList $fields) {
-		$fields->removeByName('ValidationKey');
+		//$fields->removeByName('ValidationKey');
 		$fields->removeByName('NeedsValidation');
 		$fields->removeByName('NeedsApproval');
 		$fields->removeByName('ProfilePageID');
